@@ -12,7 +12,7 @@ def read(fname):
 
 setup(
     name = "tickettemplate",
-    version = "0.1",
+    version = "1.0",
     author = "Benoît Guigal",
     author_email = "benoit@postcardgroup.com",
     description = ("A library used to render Figure tickets from ticket templates"),
@@ -20,7 +20,6 @@ setup(
     py_modules=('ticketrenderer',),
     install_requires=[
         'jinja2==2.7.3',
-        'hashids==1.0.3',
         'mock==1.0.1'
     ],
     long_description=read('README.md')
