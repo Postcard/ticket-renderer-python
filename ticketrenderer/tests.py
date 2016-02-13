@@ -54,10 +54,9 @@ class TestTicketRenderer(unittest.TestCase):
         self.assertTrue("http://media/images/image1" in rendered or "http://media/images/image2" in rendered)
         self.assertTrue("http://media/images/image3" in rendered)
 
-
     def test_render_no_variables_no_title_no_description(self):
         """
-         Ticket renderer should render even if no variables are set
+         Ticket renderer should render even if no variables, nor title, nor description are set
         """
         html = '{{picture}} {{code}} {{datetime | datetimeformat}}'
         template = {
@@ -77,6 +76,29 @@ class TestTicketRenderer(unittest.TestCase):
         self.assertIn(code, rendered)
         self.assertIn("http://static/ticket.css", rendered)
 
+
+    def test_render_no_items_in_variable(self):
+        """
+        Ticket renderer should render a template with a variable that have no items
+        """
+        html = '{{picture}} {{code}} {{datetime | datetimeformat}} {{textvariable_1}}'
+        text_variables = [{'id': '1', 'items': []}]
+        template = {
+            'html': html,
+            'images': [],
+            'image_variables': [],
+            'text_variables': text_variables,
+            'title': 'title',
+            'description': 'description'
+        }
+        ticket_renderer = TicketRenderer(template, self.media_url, self.css_url)
+        code = 'SJ98H'
+        date = datetime(2016, 01, 01)
+        picture = 'http://path/to/picture'
+        rendered = ticket_renderer.render(code=code, date=date, picture=picture)
+        self.assertIn("http://path/to/picture", rendered)
+        self.assertIn(code, rendered)
+        self.assertIn("http://static/ticket.css", rendered)
 
     def test_set_date_format(self):
         """

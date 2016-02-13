@@ -45,14 +45,16 @@ class TicketRenderer(object):
             context['image_%s' % image['id']] = image_url
 
         for image_variable in self.template['image_variables']:
-            choice = random.choice(image_variable['items'])
-            uid = 'imagevariable_%s' % image_variable['id']
-            context[uid] = self.get_image_url(choice['name'])
+            if image_variable['items']:
+                choice = random.choice(image_variable['items'])
+                uid = 'imagevariable_%s' % image_variable['id']
+                context[uid] = self.get_image_url(choice['name'])
 
         for text_variable in self.template['text_variables']:
-            choice = random.choice(text_variable['items'])
-            uid = 'textvariable_%s' % text_variable['id']
-            context[uid] = choice
+            if text_variable['items']:
+                choice = random.choice(text_variable['items'])
+                uid = 'textvariable_%s' % text_variable['id']
+                context[uid] = choice
 
         template = JINJA_ENV.from_string(self.with_layout(self.template['html']))
         return template.render(context)
