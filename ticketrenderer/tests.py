@@ -1,7 +1,7 @@
 import unittest
 from datetime import datetime
 
-from ticketrenderer import TicketRenderer
+from .ticketrenderer import TicketRenderer
 
 
 class TestTicketRenderer(unittest.TestCase):
