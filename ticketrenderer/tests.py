@@ -40,7 +40,7 @@ class TestTicketRenderer(unittest.TestCase):
             'image_variables': image_variables,
             'text_variables': text_variables,
             'title': 'title',
-            'subtitle': 'subtitle'
+            'description': 'description'
         }
         ticket_renderer = TicketRenderer(template, self.media_url, self.css_url)
         code = 'SJ98H'
@@ -54,6 +54,30 @@ class TestTicketRenderer(unittest.TestCase):
         self.assertTrue("http://media/images/image1" in rendered or "http://media/images/image2" in rendered)
         self.assertTrue("http://media/images/image3" in rendered)
 
+
+    def test_render_no_variables_no_title_no_description(self):
+        """
+         Ticket renderer should render even if no variables are set
+        """
+        html = '{{picture}} {{code}} {{datetime | datetimeformat}}'
+        template = {
+            'html': html,
+            'images': [],
+            'image_variables': [],
+            'text_variables': [],
+            'title': None,
+            'description': None
+        }
+        ticket_renderer = TicketRenderer(template, self.media_url, self.css_url)
+        code = 'SJ98H'
+        date = datetime(2016, 01, 01)
+        picture = 'http://path/to/picture'
+        rendered = ticket_renderer.render(code=code, date=date, picture=picture)
+        self.assertIn("http://path/to/picture", rendered)
+        self.assertIn(code, rendered)
+        self.assertIn("http://static/ticket.css", rendered)
+
+
     def test_set_date_format(self):
         """
         Ticket renderer should handle datetimeformat filter
@@ -65,7 +89,7 @@ class TestTicketRenderer(unittest.TestCase):
             'image_variables': [],
             'text_variables': [],
             'title': '',
-            'subtitle': ''
+            'description': ''
         }
         ticket_renderer = TicketRenderer(template, self.media_url, self.css_url)
         code = 'SJ98H'
@@ -86,7 +110,7 @@ class TestTicketRenderer(unittest.TestCase):
             'image_variables': [],
             'text_variables': [],
             'title': '',
-            'subtitle': ''
+            'description': ''
         }
         ticket_renderer = TicketRenderer(template, self.media_url, self.css_url)
         code = 'SJ98H'
