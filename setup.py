@@ -13,12 +13,12 @@ def read(fname):
 setup(
     name = "ticketrenderer",
     packages = ["ticketrenderer"],
-    version = "0.1.3",
+    version = "0.1.4",
     author = "Benoît Guigal",
     author_email = "benoit@postcardgroup.com",
     description = ("A library used to render Figure tickets from ticket templates"),
     url = "https://github.com/Postcard/ticket-renderer-python",
-    download_url = 'https://github.com/Postcard/ticket-renderer-python/tarball/0.1.3',
+    download_url = 'https://github.com/Postcard/ticket-renderer-python/tarball/0.1.4',
     py_modules=('ticketrenderer',),
     install_requires=[
         'jinja2==2.7.3',

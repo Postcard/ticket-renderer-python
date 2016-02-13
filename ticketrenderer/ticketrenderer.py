@@ -34,7 +34,7 @@ class TicketRenderer(object):
 
         context = {
             'title': self.template['title'],
-            'subtitle': self.template['subtitle'],
+            'description': self.template['description'],
             'picture': picture,
             'datetime': date,
             'code': code
