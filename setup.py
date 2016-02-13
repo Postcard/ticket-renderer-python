@@ -11,8 +11,9 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
-    name = "tickettemplate",
-    version = "1.0",
+    name = "ticketrenderer",
+    packages = ["ticketrenderer"],
+    version = "0.1",
     author = "Benoît Guigal",
     author_email = "benoit@postcardgroup.com",
     description = ("A library used to render Figure tickets from ticket templates"),
