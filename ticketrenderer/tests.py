@@ -7,7 +7,7 @@ from .ticketrenderer import TicketRenderer
 class TestTicketRenderer(unittest.TestCase):
 
     def setUp(self):
-        self.media_url = 'http://media'
+        self.media_url = 'http://media/'
         self.css_url = 'http://static/ticket.css'
 
     def test_render(self):
@@ -18,7 +18,7 @@ class TestTicketRenderer(unittest.TestCase):
         html = '{{picture}} {{code}} {{datetime | datetimeformat}} ' \
                '{{textvariable_1}} {{imagevariable_2}} ' \
                '{{image_3}}'
-        texts = ['Titi', 'Vicky', 'Benni']
+        texts = [{'text':'Titi'}, {'text':'Vicky'}, {'text':'Benni'}]
         text_variables = [{'id': '1', 'items': texts}]
 
         items = [

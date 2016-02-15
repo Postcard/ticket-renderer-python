@@ -1,5 +1,6 @@
 # coding=utf-8
 
+from os import path
 import random
 from jinja2 import Environment
 
@@ -60,7 +61,7 @@ class TicketRenderer(object):
         return template.render(context)
 
     def get_image_url(self, image_name):
-        return '%s/images/%s' % (self.media_url, image_name)
+        return path.join(self.media_url, 'images', image_name)
 
     def with_layout(self, html):
         """
