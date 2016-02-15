@@ -54,7 +54,7 @@ class TicketRenderer(object):
             if text_variable['items']:
                 choice = random.choice(text_variable['items'])
                 uid = 'textvariable_%s' % text_variable['id']
-                context[uid] = choice
+                context[uid] = choice['text']
 
         template = JINJA_ENV.from_string(self.with_layout(self.template['html']))
         return template.render(context)
