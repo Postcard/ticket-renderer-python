@@ -31,7 +31,7 @@ class TicketRenderer(object):
         self.media_url = media_url
         self.css_url = css_url
 
-    def render(self, picture, code, date):
+    def render(self, picture, code, date, counter):
 
         context = {
             'title': self.template['title'],
@@ -48,13 +48,25 @@ class TicketRenderer(object):
 
         for image_variable in self.template['image_variables']:
             if image_variable['items']:
-                choice = random.choice(image_variable['items'])
+                if image_variable['mode'] == 'random':
+                    # random mode
+                    choice = random.choice(image_variable['items'])
+                else:
+                    # sequential mode
+                    number_of_items = len(image_variable['items'])
+                    choice = image_variable['items'][counter % number_of_items]
                 uid = 'imagevariable_%s' % image_variable['id']
                 context[uid] = self.get_image_url(choice['name'])
 
         for text_variable in self.template['text_variables']:
             if text_variable['items']:
-                choice = random.choice(text_variable['items'])
+                if text_variable['mode'] == 'random':
+                    # random mode
+                    choice = random.choice(text_variable['items'])
+                else:
+                    # sequential mode
+                    number_of_items = len(text_variable['items'])
+                    choice = text_variable['items'][counter % number_of_items]
                 uid = 'textvariable_%s' % text_variable['id']
                 context[uid] = choice['text']
 
