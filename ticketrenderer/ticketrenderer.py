@@ -38,7 +38,8 @@ class TicketRenderer(object):
             'description': self.template['description'],
             'picture': picture,
             'datetime': date,
-            'code': code
+            'code': code,
+            'css_url': self.css_url
         }
 
         for image in self.template['images']:
@@ -57,28 +58,8 @@ class TicketRenderer(object):
                 uid = 'textvariable_%s' % text_variable['id']
                 context[uid] = choice['text']
 
-        template = JINJA_ENV.from_string(self.with_layout(self.template['html']))
+        template = JINJA_ENV.from_string(self.template['html'])
         return template.render(context)
 
     def get_image_url(self, image_name):
         return path.join(self.media_url, 'images', image_name)
-
-    def with_layout(self, html):
-        """
-        add layout
-        """
-        base = u"""<!doctype html>
-        <html class="figure figure-ticket-container">
-            <head>
-                <meta charset="utf-8">
-                <link rel="stylesheet" href="{css_url}">
-            </head>
-            <body class="figure figure-ticket-container">
-                <div class="figure figure-ticket">
-                    {content}
-                </div>
-            </body>
-        </html>"""
-        return base.format(css_url=self.css_url, content=html)
-
-

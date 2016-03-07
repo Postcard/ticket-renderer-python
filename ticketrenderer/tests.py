@@ -15,7 +15,7 @@ class TestTicketRenderer(unittest.TestCase):
         TicketRenderer should render a ticket
         """
 
-        html = '{{picture}} {{code}} {{datetime | datetimeformat}} ' \
+        html = '{{css_url}} {{picture}} {{code}} {{datetime | datetimeformat}} ' \
                '{{textvariable_1}} {{imagevariable_2}} ' \
                '{{image_3}}'
         texts = [{'text':'Titi'}, {'text':'Vicky'}, {'text':'Benni'}]
@@ -59,7 +59,7 @@ class TestTicketRenderer(unittest.TestCase):
         """
          Ticket renderer should render even if no variables, nor title, nor description are set
         """
-        html = '{{picture}} {{code}} {{datetime | datetimeformat}}'
+        html = '{{css_url}} {{picture}} {{code}} {{datetime | datetimeformat}}'
         template = {
             'html': html,
             'images': [],
@@ -82,7 +82,7 @@ class TestTicketRenderer(unittest.TestCase):
         """
         Ticket renderer should render a template with a variable that have no items
         """
-        html = '{{picture}} {{code}} {{datetime | datetimeformat}} {{textvariable_1}}'
+        html = '{{css_url}} {{picture}} {{code}} {{datetime | datetimeformat}} {{textvariable_1}}'
         text_variables = [{'id': '1', 'items': []}]
         template = {
             'html': html,
