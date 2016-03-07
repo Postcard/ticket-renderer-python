@@ -53,6 +53,7 @@ class TestTicketRenderer(unittest.TestCase):
         self.assertTrue("Titi" in rendered or "Vicky" in rendered or "Benni" in rendered)
         self.assertTrue("http://media/images/image1" in rendered or "http://media/images/image2" in rendered)
         self.assertTrue("http://media/images/image3" in rendered)
+        self.assertIn("01/01/2016 00:00", rendered)
 
     def test_render_no_variables_no_title_no_description(self):
         """

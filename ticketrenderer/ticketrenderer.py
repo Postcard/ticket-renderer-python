@@ -5,7 +5,7 @@ import random
 from jinja2 import Environment
 
 
-def datetimeformat(value, format='%Y-%m-%d'):
+def datetimeformat(value, format='%d/%m/%Y %H:%M'):
     """
     Jinja filter used to format date
     :param value:
