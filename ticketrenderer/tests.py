@@ -19,7 +19,8 @@ class TestTicketRenderer(unittest.TestCase):
 
         html = '{{css_url}} {{picture}} {{code}} {{datetime | datetimeformat}} ' \
                '{{textvariable_1}} {{imagevariable_2}} ' \
-               '{{image_3}}'
+               '{{image_3}}' \
+               '{{place_name}} {{place_code}} {{event_name}} {{event_code}}'
         texts = [{'text':'Titi'}, {'text':'Vicky'}, {'text':'Benni'}]
         text_variables = [{'id': '1', 'items': texts, 'mode': 'random'}]
 
@@ -48,7 +49,15 @@ class TestTicketRenderer(unittest.TestCase):
         code = 'SJ98H'
         date = datetime(2016, 01, 01)
         picture = 'http://path/to/picture'
-        rendered = ticket_renderer.render(code=code, date=date, picture=picture, counter=0)
+        place = {
+            'name': 'Place name',
+            'code': 'PPPP'
+        }
+        event = {
+            'name': 'Event name',
+            'code': 'EEEE'
+        }
+        rendered = ticket_renderer.render(code=code, date=date, picture=picture, counter=0, place=place, event=event)
         self.assertIn("http://path/to/picture", rendered)
         self.assertIn(code, rendered)
         self.assertIn("http://static/ticket.css", rendered)
@@ -56,6 +65,10 @@ class TestTicketRenderer(unittest.TestCase):
         self.assertTrue("http://media/images/image1" in rendered or "http://media/images/image2" in rendered)
         self.assertTrue("http://media/images/image3" in rendered)
         self.assertIn("01/01/2016 00:00", rendered)
+        self.assertIn("Place name", rendered)
+        self.assertIn("Event name", rendered)
+        self.assertIn("PPPP", rendered)
+        self.assertIn("EEEE", rendered)
 
     def test_render_sequential(self):
         html = '{{css_url}} {{picture}} {{code}} {{datetime | datetimeformat}} ' \
