@@ -50,12 +50,12 @@ class TestTicketRenderer(unittest.TestCase):
         date = datetime(2016, 01, 01)
         picture = 'http://path/to/picture'
         place = {
-            name:'Place name',
-            code:'PPPP'
+            'name': 'Place name',
+            'code': 'PPPP'
         }
         event = {
-            name:'Event name',
-            code:'EEEE'
+            'name': 'Event name',
+            'code': 'EEEE'
         }
         rendered = ticket_renderer.render(code=code, date=date, picture=picture, counter=0, place=place, event=event)
         self.assertIn("http://path/to/picture", rendered)
