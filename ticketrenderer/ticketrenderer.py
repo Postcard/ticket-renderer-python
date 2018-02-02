@@ -31,7 +31,7 @@ class TicketRenderer(object):
         self.media_url = media_url
         self.css_url = css_url
 
-    def render(self, picture, code, date, counter):
+    def render(self, picture, code, date, counter, place, event):
 
         context = {
             'title': self.template['title'],
@@ -39,7 +39,11 @@ class TicketRenderer(object):
             'picture': picture,
             'datetime': date,
             'code': code,
-            'css_url': self.css_url
+            'css_url': self.css_url,
+            'place_name': place.name if place else None,
+            'place_code': place.code if place else None,
+            'event_name': event.name if event else None,
+            'event_code': event.code if event else None
         }
 
         for image in self.template['images']:
