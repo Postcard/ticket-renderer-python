@@ -40,10 +40,10 @@ class TicketRenderer(object):
             'datetime': date,
             'code': code,
             'css_url': self.css_url,
-            'place_name': place.name if place else None,
-            'place_code': place.code if place else None,
-            'event_name': event.name if event else None,
-            'event_code': event.code if event else None
+            'place_name': place['name'] if place else None,
+            'place_code': place['code'] if place else None,
+            'event_name': event['name'] if event else None,
+            'event_code': event['code'] if event else None
         }
 
         for image in self.template['images']:
