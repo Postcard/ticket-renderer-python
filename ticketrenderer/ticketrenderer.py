@@ -3,6 +3,7 @@
 from os import path
 import random
 from jinja2 import Environment
+import datetime
 
 
 def datetimeformat(value, format='%d/%m/%Y %H:%M'):
@@ -43,8 +44,18 @@ class TicketRenderer(object):
             'place_name': place['name'] if place else None,
             'place_code': place['code'] if place else None,
             'event_name': event['name'] if event else None,
-            'event_code': event['code'] if event else None
+            'event_code': event['code'] if event else None,
         }
+
+        if event and event['portraits_expiration']:
+            context['days_left'] = event['portraits_expiration']
+        elif place and place['portraits_expiration']:
+            context['days_left'] = place['portraits_expiration']
+        else
+            #Default value
+            context['days_left'] = 30
+        context['expiry_date'] = date + datetime.timedelta(days=context['days_left'])
+
 
         for image in self.template['images']:
             image_url = self.get_image_url(image['name'])
