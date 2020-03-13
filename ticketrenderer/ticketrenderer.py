@@ -51,7 +51,7 @@ class TicketRenderer(object):
             context['days_left'] = event['portraits_expiration']
         elif place and place['portraits_expiration']:
             context['days_left'] = place['portraits_expiration']
-        else
+        else:
             #Default value
             context['days_left'] = 30
         context['expiry_date'] = date + datetime.timedelta(days=context['days_left'])
