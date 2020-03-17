@@ -54,8 +54,18 @@ class TicketRenderer(object):
         else:
             #Default value
             context['days_left'] = 30
-        context['expiry_date'] = date + datetime.timedelta(days=context['days_left'])
-
+        
+        #Get real expiration date
+        ed = (date + datetime.timedelta(context['days_left'])).timetuple()
+        #Server delete portraits at 4:00
+        hours = [4, 0]
+        
+        #Return an expiration_date to the next `hours`
+        if ed[3] <= hours[0] or ed[4] <= hours[1]:
+            context['expiry_date'] = datetime.datetime(ed[0], ed[1], ed[2], hours[0], hours[1])
+        else:
+            context['expiry_date'] = datetime.datetime(ed[0], ed[1], ed[2], hours[0], hours[1]) + datetime.timedelta(1)
+        
 
         for image in self.template['images']:
             image_url = self.get_image_url(image['name'])
