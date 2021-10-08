@@ -23,7 +23,7 @@ setup(
     download_url = f'https://github.com/Postcard/ticket-renderer-python/tarball/{VERSION}',
     py_modules=('ticketrenderer',),
     install_requires=[
-        'jinja2>=3.0.2',
+        'jinja2==3.0.2',
         'mock==4.0.3'
     ]
 )
