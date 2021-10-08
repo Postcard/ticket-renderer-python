@@ -47,7 +47,7 @@ class TestTicketRenderer(unittest.TestCase):
         }
         ticket_renderer = TicketRenderer(template, self.media_url, self.css_url)
         code = 'SJ98H'
-        date = datetime(2016, 01, 01)
+        date = datetime(2016, 0o1, 0o1)
         picture = 'http://path/to/picture'
         place = {
             'name': 'Place name',
@@ -55,7 +55,8 @@ class TestTicketRenderer(unittest.TestCase):
         }
         event = {
             'name': 'Event name',
-            'code': 'EEEE'
+            'code': 'EEEE',
+            'portraits_expiration': 30
         }
         rendered = ticket_renderer.render(code=code, date=date, picture=picture, counter=0, place=place, event=event)
         self.assertIn("http://path/to/picture", rendered)
@@ -100,24 +101,33 @@ class TestTicketRenderer(unittest.TestCase):
         }
         ticket_renderer = TicketRenderer(template, self.media_url, self.css_url)
         code = 'SJ98H'
-        date = datetime(2016, 01, 01)
+        date = datetime(2016, 0o1, 0o1)
+        place = {
+            'name': 'Place name',
+            'code': 'PPPP'
+        }
+        event = {
+            'name': 'Event name',
+            'code': 'EEEE',
+            'portraits_expiration': 30
+        }
         picture = 'http://path/to/picture'
-        rendered = ticket_renderer.render(code=code, date=date, picture=picture, counter=0)
+        rendered = ticket_renderer.render(code=code, date=date, picture=picture, counter=0, place=place, event=event)
         self.assertIn('Titi', rendered)
         self.assertIn('image1', rendered)
-        rendered = ticket_renderer.render(code=code, date=date, picture=picture, counter=1)
+        rendered = ticket_renderer.render(code=code, date=date, picture=picture, counter=1, place=place, event=event)
         self.assertIn('Vicky', rendered)
         self.assertIn('image2', rendered)
-        rendered = ticket_renderer.render(code=code, date=date, picture=picture, counter=2)
+        rendered = ticket_renderer.render(code=code, date=date, picture=picture, counter=2, place=place, event=event)
         self.assertIn('Benni', rendered)
         self.assertIn('image1', rendered)
-        rendered = ticket_renderer.render(code=code, date=date, picture=picture, counter=3)
+        rendered = ticket_renderer.render(code=code, date=date, picture=picture, counter=3, place=place, event=event)
         self.assertIn('Titi', rendered)
         self.assertIn('image2', rendered)
-        rendered = ticket_renderer.render(code=code, date=date, picture=picture, counter=4)
+        rendered = ticket_renderer.render(code=code, date=date, picture=picture, counter=4, place=place, event=event)
         self.assertIn('Vicky', rendered)
         self.assertIn('image1', rendered)
-        rendered = ticket_renderer.render(code=code, date=date, picture=picture, counter=5)
+        rendered = ticket_renderer.render(code=code, date=date, picture=picture, counter=5, place=place, event=event)
         self.assertIn('Benni', rendered)
         self.assertIn('image2', rendered)
 
@@ -137,9 +147,18 @@ class TestTicketRenderer(unittest.TestCase):
         }
         ticket_renderer = TicketRenderer(template, self.media_url, self.css_url)
         code = 'SJ98H'
-        date = datetime(2016, 01, 01)
+        date = datetime(2016, 0o1, 0o1)
+        place = {
+            'name': 'Place name',
+            'code': 'PPPP'
+        }
+        event = {
+            'name': 'Event name',
+            'code': 'EEEE',
+            'portraits_expiration': 30
+        }
         picture = 'http://path/to/picture'
-        rendered = ticket_renderer.render(code=code, date=date, picture=picture, counter=0)
+        rendered = ticket_renderer.render(code=code, date=date, picture=picture, counter=0, place=place, event=event)
         self.assertIn("http://path/to/picture", rendered)
         self.assertIn(code, rendered)
         self.assertIn("http://static/ticket.css", rendered)
@@ -161,9 +180,18 @@ class TestTicketRenderer(unittest.TestCase):
         }
         ticket_renderer = TicketRenderer(template, self.media_url, self.css_url)
         code = 'SJ98H'
-        date = datetime(2016, 01, 01)
+        date = datetime(2016, 0o1, 0o1)
+        place = {
+            'name': 'Place name',
+            'code': 'PPPP'
+        }
+        event = {
+            'name': 'Event name',
+            'code': 'EEEE',
+            'portraits_expiration': 30
+        }
         picture = 'http://path/to/picture'
-        rendered = ticket_renderer.render(code=code, date=date, picture=picture, counter=0)
+        rendered = ticket_renderer.render(code=code, date=date, picture=picture, counter=0, place=place, event=event)
         self.assertIn("http://path/to/picture", rendered)
         self.assertIn(code, rendered)
         self.assertIn("http://static/ticket.css", rendered)
@@ -183,9 +211,18 @@ class TestTicketRenderer(unittest.TestCase):
         }
         ticket_renderer = TicketRenderer(template, self.media_url, self.css_url)
         code = 'SJ98H'
-        date = datetime(2010, 01, 01)
+        date = datetime(2010, 0o1, 0o1)
+        place = {
+            'name': 'Place name',
+            'code': 'PPPP'
+        }
+        event = {
+            'name': 'Event name',
+            'code': 'EEEE',
+            'portraits_expiration': 30
+        }
         picture = 'http://path/to/picture'
-        rendered_html = ticket_renderer.render(code=code, date=date, picture=picture, counter=0)
+        rendered_html = ticket_renderer.render(code=code, date=date, picture=picture, counter=0, place=place, event=event)
         assert "2010/01/01" in rendered_html
 
 
@@ -193,7 +230,7 @@ class TestTicketRenderer(unittest.TestCase):
         """
         Ticket renderer should encode non unicode character
         """
-        html = u"Du texte avec un accent ici: é"
+        html = "Du texte avec un accent ici: é"
         template = {
             'html': html,
             'images': [],
@@ -204,10 +241,19 @@ class TestTicketRenderer(unittest.TestCase):
         }
         ticket_renderer = TicketRenderer(template, self.media_url, self.css_url)
         code = 'SJ98H'
-        date = datetime(2010, 01, 01)
+        date = datetime(2010, 0o1, 0o1)
+        place = {
+            'name': 'Place name',
+            'code': 'PPPP'
+        }
+        event = {
+            'name': 'Event name',
+            'code': 'EEEE',
+            'portraits_expiration': 30
+        }
         picture = 'http://path/to/picture'
-        rendered_html = ticket_renderer.render(code=code, date=date, picture=picture, counter=0)
-        assert u'Du texte avec un accent ici: é' in rendered_html
+        rendered_html = ticket_renderer.render(code=code, date=date, picture=picture, counter=0, place=place, event=event)
+        assert 'Du texte avec un accent ici: é' in rendered_html
 
 
 if __name__ == '__main__':

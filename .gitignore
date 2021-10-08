@@ -5,3 +5,4 @@ virtualenv
 build
 dist
 .pypirc
+.venv

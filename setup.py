@@ -3,6 +3,8 @@
 import os
 from setuptools import setup
 
+VERSION = "0.3.0"
+
 # Utility function to read the README file.
 # Used for the long_description.  It's nice, because now 1) we have a top level
 # README file and 2) it's easier to type in the README file than to put a raw
@@ -13,15 +15,15 @@ def read(fname):
 setup(
     name = "ticketrenderer",
     packages = ["ticketrenderer"],
-    version = "0.2.8",
+    version = VERSION,
     author = "Benoît Guigal",
     author_email = "benoit@postcardgroup.com",
     description = ("A library used to render Figure tickets from ticket templates"),
     url = "https://github.com/Postcard/ticket-renderer-python",
-    download_url = 'https://github.com/Postcard/ticket-renderer-python/tarball/0.2.7',
+    download_url = f'https://github.com/Postcard/ticket-renderer-python/tarball/{VERSION}',
     py_modules=('ticketrenderer',),
     install_requires=[
-        'jinja2>=2.7.3',
-        'mock==1.0.1'
+        'jinja2>=3.0.2',
+        'mock==4.0.3'
     ]
 )
